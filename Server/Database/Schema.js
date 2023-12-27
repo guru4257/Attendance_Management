@@ -4,9 +4,6 @@ const mongodb = require('mongodb')
 
 
 const studentSchema = new mongoose.Schema({
-    userType : {
-        type : String
-    },
     rollNumber : {
         type : String
     },
@@ -24,14 +21,19 @@ const studentSchema = new mongoose.Schema({
     },
     Password : {
         type : String
+    },
+    Attendace : {
+         present : {
+            type : Number
+         },
+         absent :{
+            type : Number
+         }
     }
 })
 
 
 const facultySchema = new mongoose.Schema({
-    userType : {
-        type : String
-    },
     employeeID : {
         type : String
     },
@@ -43,13 +45,14 @@ const facultySchema = new mongoose.Schema({
     },
     Department : {
         type  : String
+    },
+    isAssigned : {
+        type : Boolean,
+        default : false
     }
 })
 
 const adminSchema = new mongoose.Schema({
-    userType : {
-        type : String
-    },
     adminID : {
         type : String
     },
@@ -59,51 +62,82 @@ const adminSchema = new mongoose.Schema({
 })
 
 
-const attendanceSchema = new mongoose.Schema({
-    studentName : {
+const classSchema = new mongoose.Schema({
+
+     name:{
         type : String
-    },
-    Batch : {
-        type : String
-    },
-    Department : {
-        type : String
-    },
-    Date : {
+     },
+     criteria :{
+
+        Batch : {
+            type : String
+        },
+        Department : {
+            type : String
+        },
+        rollNoLimit : {
+             from : {
+                type : Number
+             },
+             to : {
+                type : Number
+             }
+        }
+     },
+     totalDaysOfAttendence : {
         type : Number
-    },
-    Month : {
-        type : Number
-    },
-    Year : {
-        type : Number
-    },
-    Period1 : {
+     },
+     faculty : {
         type : String
-    },
-    Period2 : {
-        type : String
-    },
-    Period3 : {
-        type : String
-    },
-    Period4 : {
-        type : String
-    },
-    Period5 : {
-        type : String
-    },
-    Period6 : {
-        type : String
-    },
-    Period7 : {
-        type : String
-    }
+     }
 })
+
+// const attendanceSchema = new mongoose.Schema({
+//     studentName : {
+//         type : String
+//     },
+//     Batch : {
+//         type : String
+//     },
+//     Department : {
+//         type : String
+//     },
+//     Date : {
+//         type : Number
+//     },
+//     Month : {
+//         type : Number
+//     },
+//     Year : {
+//         type : Number
+//     },
+//     Period1 : {
+//         type : String
+//     },
+//     Period2 : {
+//         type : String
+//     },
+//     Period3 : {
+//         type : String
+//     },
+//     Period4 : {
+//         type : String
+//     },
+//     Period5 : {
+//         type : String
+//     },
+//     Period6 : {
+//         type : String
+//     },
+//     Period7 : {
+//         type : String
+//     }
+// })
 
 module.exports = {
     Student : Db.model('Student',studentSchema,'STUDENT'),
     Faculty : Db.model('Faculty',facultySchema,'FACULTY'),
     Admin : Db.model('Admin',adminSchema,'ADMIN'),
-    Attendance : Db.model('Attendance',attendanceSchema,'ATTENDANCE')
+    // Attendance : Db.model('Attendance',attendanceSchema,'ATTENDANCE'),
+    Class : Db.model('Class',classSchema,"CLASS")
 }

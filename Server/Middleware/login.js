@@ -1,8 +1,8 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
-const { Student, Faculty } = require('../Database/Schema')
+const { Student, Faculty, Admin } = require('../Database/Schema')
 
-
+// login middleware
 const validUser = async(req,res,next)=>{
        
        console.log('login');
@@ -27,6 +27,7 @@ const validUser = async(req,res,next)=>{
                             Message : "Invalid Password!"
                         })
                     }else{
+                        res.cookie("user_id",userDetails[0]._id,{httpOnly:true});
                         next()
                     }
                 })
@@ -49,35 +50,48 @@ const validUser = async(req,res,next)=>{
                             Message : "Invalid Password!"
                         })
                     }else{
+                        res.cookie("user_id",facultyDetails[0]._id,{httpOnly:true});
                         next()
                     }
                 })
             }
         }else if(userType==='Admin'){
             const adminDetails = await Admin.find({adminID:userID})
-            if(userDetails.length===0){
+            if(adminDetails.length===0){
                 return res.json({
                     Success : 'False',
                     Message : "UserID Does not Exists! Please Try again with the valid One."
                 })
             }else{
-                const adminPassword = adminDetails[0].Password
-                const validPassword = await bcrypt
-                .compare(Password, adminPassword)
-                .then(async(result) => {
-                    if(result===false){
-                        return res.json({
-                            Success : 'False',
-                            Message : "Invalid Password!"
-                        })
-                    }else{
-                        next()
-                    }
-                })
+                const adminPassword = adminDetails[0].Password;
+                // const validPassword = await bcrypt
+                // .compare(Password, adminPassword)
+                // .then(async(result) => {
+                //     if(result===false){
+                //         return res.json({
+                //             Success : 'False',
+                //             Message : "Invalid Password!"
+                //         })
+                //     }else{
+                //         res.cookie("user_id",adminDetails[0]._id,{httpOnly:true});
+                //         next()
+                //     }
+                // })
+
+                if(Password !== adminPassword){
+                    return res.json({
+                                    Success : 'False',
+                                    Message : "Invalid Password!"
+                           })
+                }else{
+                    res.cookie("user_id",adminDetails[0]._id,{httpOnly:true});
+                    next();
+                }
             }
         }
     }catch(err){
         console.log(err)
+
         return res.json({
             Success : 'False',
             Message: "There is a Error in Logging In! Please Try again after sometimes..."

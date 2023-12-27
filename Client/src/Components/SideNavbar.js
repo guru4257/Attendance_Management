@@ -1,36 +1,50 @@
 import React from "react";
-import "./SideNavbar.css"
+import "./SideNavbar.css";
+import {Link} from "react-router-dom";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { IoPersonAddSharp } from "react-icons/io5";
+import { GrChapterAdd } from "react-icons/gr";
 
 const SideNavbar = () => {
+
+  const userType = 'Admin';
+  //  sessionStorage.getItem('userType');
   return (
-    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-    <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-4">
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
-          <i class="fas fa-chart-area fa-fw me-3"></i><span>Webiste traffic</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-lock fa-fw me-3"></i><span>Password</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-chart-line fa-fw me-3"></i><span>Analytics</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-globe fa-fw me-3"></i><span>International</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-building fa-fw me-3"></i><span>Partners</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-users fa-fw me-3"></i><span>Users</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a>
+    <nav id="sidebarMenu" className ="collapse d-lg-block sidebar collapse bg-white">
+    <div className ="position-sticky">
+      <div className ="list-group list-group-flush mx-3 mt-4">
+        { userType === 'Admin' || userType === 'Faculty'?(
+          <Link to="/dashboard" className ="list-group-item list-group-item-action py-4 ripple" aria-current="true">
+          <MdOutlineDashboardCustomize />  <span><strong>Dashboard</strong></span>
+          </Link>
+        ):(null)}
+        { userType === 'Admin' && (<>
+           <Link to="/admin/addStudent" className ="list-group-item list-group-item-action py-4 ripple"><IoPersonAddSharp />  <span><strong>Add Students</strong></span>
+           </Link>
+           <Link to="/admin/addClass" className ="list-group-item list-group-item-action py-4 ripple"><GrChapterAdd />  <span><strong>Add Class</strong></span></Link>
+           <Link to="/admin/addFaculty" className ="list-group-item list-group-item-action py-4 ripple"><IoPersonAddSharp />  <span><strong>Add Faculty</strong></span>
+           </Link>
+           </>
+        )}
+        {/* <Link to="#" className ="list-group-item list-group-item-action py-2 ripple active">
+          <i className ="fas fa-chart-area fa-fw me-3"></i><span>Webiste traffic</span>
+        </Link> */}
+        
+        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple">
+          <i className ="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
+        </Link>
+        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
+            className ="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></Link>
+        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
+            className ="fas fa-globe fa-fw me-3"></i><span>International</span></Link>
+        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
+            className ="fas fa-building fa-fw me-3"></i><span>Partners</span></Link>
+        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
+            className ="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></Link>
+        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
+            className ="fas fa-users fa-fw me-3"></i><span>Users</span></Link>
+        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
+            className ="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></Link>
       </div>
     </div>
   </nav>

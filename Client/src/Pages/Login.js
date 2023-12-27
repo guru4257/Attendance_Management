@@ -30,7 +30,14 @@ const Login = ()=>{
 
                if(res.data.Success === 'True'){
                     sessionStorage.setItem('isAuth',true);
-                    navigate('/');
+                    sessionStorage.setItem('userType',res.data.userType);
+                    sessionStorage.setItem('userID',res.data.userID);
+                    if(res.data.userType === 'Admin' || res.data.userType === 'Faculty'){
+                        navigate('/dashboard');
+                    }else{
+                        
+                         navigate('/student/dashboard');
+                    }
                     setUserData({
                       userID: "",
                       Password: "",
@@ -48,9 +55,14 @@ const Login = ()=>{
 
       //  return to Dashboard if LoggedIn and does not allowed to Login Page
     
-      if(sessionStorage.getItem('isAuth')){
-        navigate('/');
-      }
+      // if(sessionStorage.getItem('isAuth')){
+      //    if(sessionStorage.getItem('userType') === 'Student'){
+      //       navigate('/student/dashboard');
+      //    }else{
+            
+      //      navigate('/dashboard');
+      //    }
+      // }
       return (
         <>
         <section > 

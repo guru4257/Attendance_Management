@@ -4,7 +4,7 @@ const MainNavBar = () => {
   return (
     <nav
       id="main-navbar"
-      className="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+      className="navbar navbar-expand-lg navbar-light bg-lightblue fixed-top"
     >
       <div className="container-fluid">
         <button
@@ -20,26 +20,8 @@ const MainNavBar = () => {
         </button>
 
         <a className="navbar-brand" href="#">
-          <img
-            src="Logo.png"
-            height="45"
-            alt="Logo"
-            loading="lazy"
-          />
+          <h3>Attendance</h3>
         </a>
-
-        <form className="d-none d-md-flex input-group w-auto my-auto">
-          <input
-            autocomplete="off"
-            type="search"
-            className="form-control rounded"
-            placeholder='Search (ctrl + "/" to focus)'
-            style={{minWidth:"225px"}}
-          />
-          <span className="input-group-text border-0">
-            <i className="fas fa-search"></i>
-          </span>
-        </form>
 
         <ul className="navbar-nav ms-auto d-flex flex-row">
           <li className="nav-item dropdown">

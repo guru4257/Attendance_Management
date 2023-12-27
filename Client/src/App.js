@@ -5,6 +5,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from './Pages/Login';
 import SideNavbar from './Components/SideNavbar';
 import Dashboard from './Pages/Dashboard';
+import StudentAttendanceSummary from './Pages/StudentAttendanceSummary';
+import AddStudents from './Pages/AddStudents';
+import AddClass from './Pages/AddClass';
+import AddFaculty from './Pages/AddFaculty';
 
 
 
@@ -16,8 +20,12 @@ function App() {
       {/* <SideNavbar /> */}
       <Router>
         <Routes>
-            <Route element={<Login />} path='/login'></Route>
-            <Route element={<Dashboard />} path='/'></Route>
+            <Route element={<Login />} path='/'></Route>
+            <Route element={<Dashboard />} path='/dashboard'></Route>
+            <Route element={<StudentAttendanceSummary />} path="student/dashboard"></Route>
+            <Route element={<AddStudents />} path='/admin/addStudent'></Route>
+            <Route element={<AddClass />} path='/admin/addClass'></Route>
+            <Route element={<AddFaculty />} path='/admin/addFaculty'></Route>
         </Routes>
       </Router>
       <ToastContainer />
