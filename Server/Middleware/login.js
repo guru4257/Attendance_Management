@@ -4,13 +4,16 @@ const { Student, Faculty } = require('../Database/Schema')
 
 
 const validUser = async(req,res,next)=>{
+       
+       console.log('login');
     try{
+
         const {userType,userID,Password} = req.body
         if(userType==='Student'){
             const userDetails = await Student.find({studentID:userID})
             if(userDetails.length===0){
                 return res.json({
-                    Success : False,
+                    Success : 'False',
                     Message : "UserID Does not Exists! Please Try again with the valid One."
                 })
             }else{
@@ -20,7 +23,7 @@ const validUser = async(req,res,next)=>{
                 .then(async(result) => {
                     if(result===false){
                         return res.json({
-                            Success : False,
+                            Success : 'False',
                             Message : "Invalid Password!"
                         })
                     }else{
@@ -32,7 +35,7 @@ const validUser = async(req,res,next)=>{
             const facultyDetails = await Faculty.find({employeeID : userID})
             if(facultyDetails.length===0){
                 return res.json({
-                    Success : False,
+                    Success : 'False',
                     Message : "UserID Does not Exists! Please Try again with the valid One."
                 })
             }else{
@@ -42,7 +45,7 @@ const validUser = async(req,res,next)=>{
                 .then(async(result) => {
                     if(result===false){
                         return res.json({
-                            Success : False,
+                            Success : 'False',
                             Message : "Invalid Password!"
                         })
                     }else{
@@ -54,7 +57,7 @@ const validUser = async(req,res,next)=>{
             const adminDetails = await Admin.find({adminID:userID})
             if(userDetails.length===0){
                 return res.json({
-                    Success : false,
+                    Success : 'False',
                     Message : "UserID Does not Exists! Please Try again with the valid One."
                 })
             }else{
@@ -64,7 +67,7 @@ const validUser = async(req,res,next)=>{
                 .then(async(result) => {
                     if(result===false){
                         return res.json({
-                            Success : False,
+                            Success : 'False',
                             Message : "Invalid Password!"
                         })
                     }else{
@@ -76,7 +79,7 @@ const validUser = async(req,res,next)=>{
     }catch(err){
         console.log(err)
         return res.json({
-            Success : False,
+            Success : 'False',
             Message: "There is a Error in Logging In! Please Try again after sometimes..."
         })
     }

@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LoginReq } from "../services/postRequest";
+import { notify } from "../services/toastify";
 
 
 const Login = ()=>{
@@ -28,16 +29,28 @@ const Login = ()=>{
         LoginReq(userData).then((res)=>{
 
                if(res.data.Success === 'True'){
-                            
+                    sessionStorage.setItem('isAuth',true);
+                    navigate('/');
+                    setUserData({
+                      userID: "",
+                      Password: "",
+                      userType:""
+                    });
+                           
+               }else{
+                    notify(res.data.Message,"warning");
                }
+        }).catch((err)=>{
+             
+               notify(err.response.data.Message,"error");
         })
       };
 
       //  return to Dashboard if LoggedIn and does not allowed to Login Page
     
-    //   if(sessionStorage.getItem('isAuth')){
-    //     navigate('/');
-    //   }
+      if(sessionStorage.getItem('isAuth')){
+        navigate('/');
+      }
       return (
         <>
         <section > 
@@ -58,8 +71,8 @@ const Login = ()=>{
                     <input
                       type="text"
                       id="form3Example3"
-                      name="username"
-                      value={userData.username}
+                      name="userID"
+                      value={userData.userID}
                       onChange={onHandleChange}
                       className="form-control form-control-lg"
                       placeholder="Enter a valid userID"
@@ -73,8 +86,8 @@ const Login = ()=>{
                     <input
                       type="password"
                       id="form3Example4"
-                      name="password"
-                      value={userData.password}
+                      name="Password"
+                      value={userData.Password}
                       onChange={onHandleChange}
                       className="form-control form-control-lg"
                       placeholder="Enter password"

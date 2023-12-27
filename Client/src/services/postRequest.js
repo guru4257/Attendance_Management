@@ -4,7 +4,7 @@ const url = process.env.REACT_APP_BACKEND_API;
 
 //login request
 export const LoginReq = async(userData)=>{
-
-      return axios.post(REACT_APP_BACKEND_API+"/user/login",userData);
+      console.log("HI");
+      return await axios.post(url+"/user/login",userData);
 }
 
