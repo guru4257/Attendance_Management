@@ -1,13 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { LoginReq } from "../services/postRequest";
 
 
 const Login = ()=>{
 
     const [userData, setUserData] = useState({
-        username: "",
-        password: "",
+        userID: "",
+        Password: "",
         userType:""
       });
     
@@ -24,6 +25,12 @@ const Login = ()=>{
       const onHandleSubmit = (event) => {
         event.preventDefault();
         console.log(userData);
+        LoginReq(userData).then((res)=>{
+
+               if(res.data.Success === 'True'){
+                            
+               }
+        })
       };
 
       //  return to Dashboard if LoggedIn and does not allowed to Login Page
@@ -55,10 +62,10 @@ const Login = ()=>{
                       value={userData.username}
                       onChange={onHandleChange}
                       className="form-control form-control-lg"
-                      placeholder="Enter a valid user Name"
+                      placeholder="Enter a valid userID"
                     />
                     <label className="form-label" for="form3Example3">
-                      User Name
+                      User ID
                     </label>
                   </div>
     
@@ -103,12 +110,6 @@ const Login = ()=>{
                     >
                       Login
                     </button>
-                    <p className="small fw-bold mt-2 pt-1 mb-0">
-                      Don't have an account?{" "}
-                      <Link to="/signup" className="link-danger">
-                        Register
-                      </Link>
-                    </p>
                   </div>
                 </form>
               </div>
