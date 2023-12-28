@@ -12,7 +12,7 @@ addFacultyRouter.post('/',sessionvalidator,async(req,res)=>{
 
      try{
 
-        const existFaculty = await Faculty.find({$and:[{employeeID:employeeID},{employeeName:employeeName},{Department:Department}]});
+        const existFaculty = await Faculty.find({employeeID:employeeID});
 
         if(existFaculty.length !== 0){
             return res.json({

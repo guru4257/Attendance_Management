@@ -113,6 +113,7 @@ const[availClasses,setAvailClasses] = useState([]);
                     </Form.Label>
                     <Col sm={5}>
                       <Form.Control
+                        required
                         as="select"
                         value={classData.Batch}
                         aria-label="Default select example"
@@ -140,6 +141,7 @@ const[availClasses,setAvailClasses] = useState([]);
                     </Form.Label>
                     <Col sm={5}>
                       <Form.Control
+                        required
                         as="select"
                         aria-label="Default select example"
                         name="Department"
@@ -168,6 +170,7 @@ const[availClasses,setAvailClasses] = useState([]);
                     </Form.Label>
                     <Col sm={5}>
                       <Form.Control
+                        required
                         as="select"
                         aria-label="Default select example"
                         name="name"
@@ -190,6 +193,7 @@ const[availClasses,setAvailClasses] = useState([]);
                     </Form.Label>
                     <Col sm={5}>
                       <Form.Control
+                        required
                         as="select"
                         aria-label="Default select example"
                         name="faculty"
@@ -200,40 +204,10 @@ const[availClasses,setAvailClasses] = useState([]);
                         {
                           faculties.map((ele,i)=>{
 
-                             return <option value={ele} key={i}>{ele}</option>
+                             return <option value={ele.employeeID} key={i}>{ele.employeeName}</option>
                           })
                         }
                       </Form.Control>
-                    </Col>
-                  </Form.Group>
-                  <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm={4} style={{ textAlign: "center" }}>
-                      <strong>Roll Number Limit From</strong>
-                    </Form.Label>
-                    <Col sm={5}>
-                      <Form.Control
-                        type="number"
-                        value={classData.from}
-                        name="from"
-                        onChange={OnHandleChange}
-                        placeholder="Enter The Roll Number Limit start from... Ex - 001"
-                        required
-                      />
-                    </Col>
-                  </Form.Group>
-                  <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm={4} style={{ textAlign: "center" }}>
-                      <strong>Roll Number Limit To</strong>
-                    </Form.Label>
-                    <Col sm={5}>
-                      <Form.Control
-                        type="number"
-                        value={classData.to}
-                        name="to"
-                        onChange={OnHandleChange}
-                        placeholder="Enter The Roll Number Limit Ends to..."
-                        required
-                      />
                     </Col>
                   </Form.Group>
                   

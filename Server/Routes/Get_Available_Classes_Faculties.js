@@ -12,13 +12,19 @@ availableClassesAndFacultiesProvider.post('/',sessionvalidator,async(req,res)=>{
             
             const available_Faculties = await Faculty.find({$and:[{Department:Department},{isAssigned:false}]});
             const remaining_Classes = await Class.find({$and:[{
-                'criteria.Batch':Batch,
-                'criteria.Department':Department
-            },{faculty:{$eq:'faculty'}}]});
+                criteria : {
+                    Batch : Batch,
+                    Department : Department
+                }
+            },{facultyID:{$eq:'0000'}}]});
 
             const facultiesNames = available_Faculties.map((ele)=>{
-                  
-                   return ele.employeeName
+
+                   const obj = {
+                      employeeID : ele.employeeID,
+                      employeeName : ele.employeeName
+                   }
+                   return obj;
             })
 
             const Classes = remaining_Classes.map((ele)=>{

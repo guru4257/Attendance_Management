@@ -36,9 +36,9 @@ const studentSchema = new mongoose.Schema({
             default : 0
          }
     },
-    facultyAssigned : {
-        type : Boolean,
-        default : false
+    facultyName : {
+        type : String,
+        default : 'faculty'
     }
 })
 
@@ -84,25 +84,15 @@ const classSchema = new mongoose.Schema({
         },
         Department : {
             type : String
-        },
-        rollNoLimit : {
-             from : {
-                type : Number,
-                default : 0
-             },
-             to : {
-                type : Number,
-                default : 0
-             }
         }
      },
      totalDaysOfAttendence : {
         type : Number,
         default : 0
      },
-     faculty : {
+     facultyID : {
         type : String,
-        default : "faculty"
+        default : "0000"
      },
      absentees : {
 

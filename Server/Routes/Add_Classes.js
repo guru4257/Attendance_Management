@@ -10,10 +10,10 @@ addClassesRouter.post('/',sessionvalidator,async(req,res)=>{
 
     try{
 
-        const existClass = await Class.find({$and:[{name:name},{criteria:{
+        const existClass = await Class.find({criteria:{
              Batch : Batch,
              Department : Department
-        }}]});
+        }});
 
         if(existClass.length!==0){
             return res.json({

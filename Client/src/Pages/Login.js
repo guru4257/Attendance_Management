@@ -29,15 +29,28 @@ const Login = ()=>{
         LoginReq(userData).then((res)=>{
 
                if(res.data.Success === 'True'){
-                    sessionStorage.setItem('isAuth',true);
-                    sessionStorage.setItem('userType',res.data.userType);
-                    sessionStorage.setItem('userID',res.data.userID);
-                    if(res.data.userType === 'Admin' || res.data.userType === 'Faculty'){
-                        navigate('/dashboard');
-                    }else{
-                        
-                         navigate('/student/dashboard');
-                    }
+                 
+                   if(res.data.userType === 'Student'){
+
+                      sessionStorage.setItem('userType',res.data.userType);
+                      sessionStorage.setItem('userID',res.data.userID);
+                      sessionStorage.setItem('userName',res.data.userName);
+                      sessionStorage.setItem('Batch',res.data.Batch);
+                      sessionStorage.setItem('Department',res.data.Department);
+                      navigate('/student/dashboard');
+
+                   }else if(res.data.userType === 'Faculty'){
+                      sessionStorage.setItem('userType',res.data.userType);
+                      sessionStorage.setItem('userID',res.data.userID);
+                      sessionStorage.setItem('userName',res.data.userName);
+                      sessionStorage.setItem('Department',res.data.Department);
+
+                      navigate('/dashboard');
+                   }else{
+                      sessionStorage.setItem('userType',res.data.userType);
+                      sessionStorage.setItem('userID',res.data.userID);
+                      navigate('/dashboard');
+                   }
                     setUserData({
                       userID: "",
                       Password: "",

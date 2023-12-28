@@ -5,6 +5,9 @@ import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { GrChapterAdd } from "react-icons/gr";
 import { GiTeacher } from "react-icons/gi";
+import { FaEdit } from "react-icons/fa";
+import { MdCoPresent } from "react-icons/md";
+
 
 const SideNavbar = () => {
 
@@ -32,9 +35,13 @@ const SideNavbar = () => {
         {/* <Link to="#" className ="list-group-item list-group-item-action py-2 ripple active">
           <i className ="fas fa-chart-area fa-fw me-3"></i><span>Webiste traffic</span>
         </Link> */}
-        
-        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple">
-          <i className ="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
+        {
+          userType === 'Faculty' && (
+            <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><MdCoPresent />  <span><strong>Upload Attendance</strong></span></Link>
+          )
+        }
+        <Link to="/user/changePassword" className ="list-group-item list-group-item-action py-4 ripple">
+        <FaEdit />  <span><strong>Change Password</strong></span>
         </Link>
         <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
             className ="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></Link>

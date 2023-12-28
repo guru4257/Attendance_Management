@@ -38,3 +38,9 @@ export const assignFaculty = async(data)=>{
       return await axios.post(url+"/admin/assignFacultyToClass",data,{withCredentials:true});
 }
 
+// post request for user changing password
+export const changePasswordFor = async(data)=>{
+
+      return await axios.post(url+'/user/changePassword',data,{withCredentials:true});
+}
+

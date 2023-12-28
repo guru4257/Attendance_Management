@@ -1,37 +1,24 @@
 const express = require('express');
 const sessionvalidator = require('../Middleware/session_validator');
-const { Class, Student } = require('../Database/Schema');
+const { Class, Student, Faculty } = require('../Database/Schema');
 const facultyAssigner = express.Router();
 
 // Router for Assining faculty to the class..
 facultyAssigner.post('/',sessionvalidator,async(req,res)=>{
       
-        const{faculty, name, Batch, Department, from, to} = req.body;
+        const{faculty, name, Batch, Department} = req.body;
 
         try{
             
            
-            const alreadyAssinedData = await Class.find({criteria:{
-                Batch:Batch,
-                Department : Department,
-                rollNoLimit : {
-                    from : from,
-                    to : to
+            const alreadyAssinedData = await Class.find({$and:[{name:name},{
+                criteria : {
+                    Batch : Batch,
+                    Department : Department
                 }
-            }});
-
-            const studentsExist =  await Student.find({$and:[{Batch:Batch},{Department:Department}]});
-
-            if(to > studentsExist.length){
-
-                return res.json({
-                    Success : 'False',
-                    Message : "Hey Admin! You provided Roll NumberLimit is Larger than student strength, Please provide Roll Numbers Limit - to value correctly...."
-                })
-                
-            }
-
-            if(alreadyAssinedData.length!==0){
+            }]});
+            console.log(alreadyAssinedData)
+            if(alreadyAssinedData[0].facultyID !== '0000'){
 
                 return res.json({
                     Success : 'False',
@@ -49,25 +36,50 @@ facultyAssigner.post('/',sessionvalidator,async(req,res)=>{
                         criteria : {
                             Batch : Batch,
                             Department : Department,
-                            rollNoLimit : {
-    
-                                from : from,
-                                to : to
-                            }
                         },
                         faculty : faculty
                     }
                 })
     
                 if(updation.modifiedCount >= 0){
-    
-                    return res.json({
-                        Success : "True",
-                        Message :"Hey Admin! Successfully Assinged Faculty to the mentioned class..."
-                    })
+                    
+                    const updateFaculty = await Faculty.updateOne({$and:[{Department:Department},{employeeID:faculty}]},{
+                        $set : {
+                            isAssigned : true
+                        }
+                    });
+
+                    if(updateFaculty.modifiedCount >= 0){
+
+                        const faculty1 = await Faculty.find({$and:[{Department:Department},{employeeID:faculty}]});
+
+                        const name = faculty1[0].employeeName;
+                        const updateStudent = await Student.updateMany({$and:[{Batch:Batch},{Department:Department}]},{$set:{facultyName:name}});
+
+                        if(updateStudent.modifiedCount >= 0){
+                            return res.json({
+                                Success : "True",
+                                Message :"Hey Admin! Successfully Assinged Faculty to the mentioned class..."
+                            })
+                        }else{
+
+                            return res.json({
+                                Success : 'False',
+                                Message : "There is an Error in Assigning the Faculty..."
+                              })
+
+                        }
+                        
+                    }else{
+
+                        return res.json({
+                            Success : 'False',
+                            Message : "There is an Error in Assigning the Faculty..."
+                          })
+                    }
                 }else if(updation.modifiedCount<0){
-                    res.json({
-                      Success : 'True',
+                    return res.json({
+                      Success : 'False',
                       Message : "There is an Error in Assigning the Faculty..."
                     })
                 }
