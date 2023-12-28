@@ -8,7 +8,7 @@ import Form from "react-bootstrap/esm/Form";
 import Card from "react-bootstrap/esm/Card";
 import Container from "react-bootstrap/esm/Container";
 import "../Pages/Dashboard.css";
-import { addClass, getAvailableClassesandFaculties } from "../services/postRequest";
+import { assignFaculty, getAvailableClassesandFaculties } from "../services/postRequest";
 import { notify } from "../services/toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -35,7 +35,8 @@ const[availClasses,setAvailClasses] = useState([]);
 //   Batch and Department data for getting Available Classes and Faculties
    
   const getAvailableDatas = (dept)=>{
-
+      
+    console.log(dept);
       const data = {
           Batch : classData.Batch,
           Department : dept 
@@ -43,7 +44,7 @@ const[availClasses,setAvailClasses] = useState([]);
       getAvailableClassesandFaculties(data).then((res)=>{
 
               if(res.data.Success === 'True'){
-                   
+                    
                     setFaculties(res.data.faculties);
                     setAvailClasses(res.data.classes);
               }else{
@@ -69,7 +70,7 @@ const[availClasses,setAvailClasses] = useState([]);
     event.preventDefault();
     console.log(classData);
     setSpinner(true);
-    addClass(classData).then((res)=>{
+    assignFaculty(classData).then((res)=>{
 
          if(res.data.Success === 'True'){
               notify(res.data.Message,'success');
@@ -145,7 +146,7 @@ const[availClasses,setAvailClasses] = useState([]);
                         value={classData.Department}
                         onChange={(e)=>{
                             OnHandleChange(e);
-                            getAvailableDatas(e.value);
+                            getAvailableDatas(e.target.value);
                         }}
                       >
                         <option>Department</option>
@@ -203,6 +204,36 @@ const[availClasses,setAvailClasses] = useState([]);
                           })
                         }
                       </Form.Control>
+                    </Col>
+                  </Form.Group>
+                  <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm={4} style={{ textAlign: "center" }}>
+                      <strong>Roll Number Limit From</strong>
+                    </Form.Label>
+                    <Col sm={5}>
+                      <Form.Control
+                        type="number"
+                        value={classData.from}
+                        name="from"
+                        onChange={OnHandleChange}
+                        placeholder="Enter The Roll Number Limit start from... Ex - 001"
+                        required
+                      />
+                    </Col>
+                  </Form.Group>
+                  <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm={4} style={{ textAlign: "center" }}>
+                      <strong>Roll Number Limit To</strong>
+                    </Form.Label>
+                    <Col sm={5}>
+                      <Form.Control
+                        type="number"
+                        value={classData.to}
+                        name="to"
+                        onChange={OnHandleChange}
+                        placeholder="Enter The Roll Number Limit Ends to..."
+                        required
+                      />
                     </Col>
                   </Form.Group>
                   

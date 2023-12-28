@@ -6,17 +6,31 @@ const availableClassesAndFacultiesProvider = express.Router();
 availableClassesAndFacultiesProvider.post('/',sessionvalidator,async(req,res)=>{
           
        const{ Batch, Department } = req.body;
+       console.log(Batch,Department);
 
        try{
-          
-            const available_Faculties = await Faculty.find({$and:[{Batch:Batch},{Department:Department},{isAssigned:false}]});
-            const remaing_Classes = await Class.find({$and:[{Batch:Batch},{Department:Department},{faculty:null}]});
+            
+            const available_Faculties = await Faculty.find({$and:[{Department:Department},{isAssigned:false}]});
+            const remaining_Classes = await Class.find({$and:[{
+                'criteria.Batch':Batch,
+                'criteria.Department':Department
+            },{faculty:{$eq:'faculty'}}]});
+
+            const facultiesNames = available_Faculties.map((ele)=>{
+                  
+                   return ele.employeeName
+            })
+
+            const Classes = remaining_Classes.map((ele)=>{
+                  
+                return ele.name;
+            })
 
             return res.json({
                 Success :'True',
                 Message : 'Successfully fetched',
-                faculties : available_Faculties,
-                classes : remaing_Classes
+                faculties : facultiesNames,
+                classes : Classes
             })
        }catch(err){
         console.log(err);

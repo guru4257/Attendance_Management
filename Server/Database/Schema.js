@@ -24,11 +24,21 @@ const studentSchema = new mongoose.Schema({
     },
     Attendace : {
          present : {
-            type : Number
+            type : Number,
+            default : 0
          },
          absent :{
-            type : Number
+            type : Number,
+            default : 0
+         },
+         OD : {
+            type : Number,
+            default : 0
          }
+    },
+    facultyAssigned : {
+        type : Boolean,
+        default : false
     }
 })
 
@@ -77,18 +87,29 @@ const classSchema = new mongoose.Schema({
         },
         rollNoLimit : {
              from : {
-                type : Number
+                type : Number,
+                default : 0
              },
              to : {
-                type : Number
+                type : Number,
+                default : 0
              }
         }
      },
      totalDaysOfAttendence : {
-        type : Number
+        type : Number,
+        default : 0
      },
      faculty : {
-        type : String
+        type : String,
+        default : "faculty"
+     },
+     absentees : {
+
+        "date" : {
+            type : Array,
+            default : []
+        }
      }
 })
 

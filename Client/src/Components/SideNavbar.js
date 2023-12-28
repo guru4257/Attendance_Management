@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { GrChapterAdd } from "react-icons/gr";
+import { GiTeacher } from "react-icons/gi";
 
 const SideNavbar = () => {
 
@@ -23,6 +24,8 @@ const SideNavbar = () => {
            </Link>
            <Link to="/admin/addClass" className ="list-group-item list-group-item-action py-4 ripple"><GrChapterAdd />  <span><strong>Add Class</strong></span></Link>
            <Link to="/admin/addFaculty" className ="list-group-item list-group-item-action py-4 ripple"><IoPersonAddSharp />  <span><strong>Add Faculty</strong></span>
+           </Link>
+           <Link to="/admin/assignFaculty" className ="list-group-item list-group-item-action py-4 ripple"><GiTeacher />  <span><strong>Assign Faculty</strong></span>
            </Link>
            </>
         )}

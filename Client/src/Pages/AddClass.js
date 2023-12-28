@@ -30,6 +30,8 @@ const AddClass = () => {
     const { name, value } = event.target;
     setClassData({ ...classData, [name]: value });
   };
+
+  
   
   //on submitting send request to the server and handling responses
   const onHandleSubmit = (event)=>{

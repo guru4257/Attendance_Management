@@ -9,6 +9,7 @@ import StudentAttendanceSummary from './Pages/StudentAttendanceSummary';
 import AddStudents from './Pages/AddStudents';
 import AddClass from './Pages/AddClass';
 import AddFaculty from './Pages/AddFaculty';
+import AssignFacultyToClass from './Pages/AssignFacultyToClass';
 
 
 
@@ -26,6 +27,7 @@ function App() {
             <Route element={<AddStudents />} path='/admin/addStudent'></Route>
             <Route element={<AddClass />} path='/admin/addClass'></Route>
             <Route element={<AddFaculty />} path='/admin/addFaculty'></Route>
+            <Route element={<AssignFacultyToClass />} path='/admin/assignFaculty'></Route>
         </Routes>
       </Router>
       <ToastContainer />

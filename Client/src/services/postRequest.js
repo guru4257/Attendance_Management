@@ -32,3 +32,9 @@ export const getAvailableClassesandFaculties = async(data)=>{
       return await axios.post(url+"/admin/getAvailable/classes/faculties",data,{withCredentials:true});
 }
 
+// post request for assingning faculty to classe
+export const assignFaculty = async(data)=>{
+
+      return await axios.post(url+"/admin/assignFacultyToClass",data,{withCredentials:true});
+}
+
