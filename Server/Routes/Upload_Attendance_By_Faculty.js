@@ -11,7 +11,8 @@ attendanceUploader.post('/',async(req,res)=>{
     
     try{
           
-         var absentees = await Class.findOne({$and:[{'criteria.Department':Department},{facultyID:facultyID}]}).absentees;
+         var classData = await Class.findOne({$and:[{'criteria.Department':Department},{facultyID:facultyID}]});
+         var absentees = classData.absentees;
          console.log(absentees);
          if(absentees == undefined) absentees = {};
          if(absentees[date] == undefined){

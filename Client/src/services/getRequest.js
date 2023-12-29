@@ -8,3 +8,10 @@ export const logOut = async()=>{
      
      return await axios.get(url+'/user/logout',{withCredentials:true});
 }
+
+//getRequest for fetching all students
+
+export const fetchAll = async()=>{
+
+     return await axios.get(url+"/admin/getAll",{withCredentials:true});
+}

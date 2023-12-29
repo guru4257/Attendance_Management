@@ -12,6 +12,8 @@ import AddFaculty from './Pages/AddFaculty';
 import AssignFacultyToClass from './Pages/AssignFacultyToClass';
 import ChangePassword from './Pages/ChangePassword';
 import FacultyAddAttendance from './Pages/FacultyAddAttendance';
+import StudentsTablePageForFaculty from './Pages/StudentsTablePageForFaculty';
+import TotalStudents from './Pages/TotalStudents';
 
 
 
@@ -32,6 +34,8 @@ function App() {
             <Route element={<AssignFacultyToClass />} path='/admin/assignFaculty'></Route>
             <Route element={<ChangePassword />} path='/user/changePassword'></Route>
             <Route element={<FacultyAddAttendance />} path='/faculty/provide/attendance'></Route>
+            <Route element={<StudentsTablePageForFaculty />} path='/faculty/studets/page'></Route>
+            <Route element={<TotalStudents />} path='/admin/allstudents'></Route>
         </Routes>
       </Router>
       <ToastContainer />

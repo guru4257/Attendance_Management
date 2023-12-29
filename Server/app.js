@@ -14,6 +14,7 @@ const passwordChanger = require('./Routes/Change_Password')
 const bulkDataAdder = require('./Routes/Add_Students_Bulk_Data')
 const studentProviderForAttendance = require('./Routes/Faculty_Get_Students_For_Attendance')
 const attendanceUploader = require('./Routes/Upload_Attendance_By_Faculty')
+const allStudentsProvider = require('./Routes/GetAllStudents')
 
 app.use("*",cors({
     origin : true,
@@ -56,6 +57,9 @@ app.use('/faculty/getStudentsForAttendance',studentProviderForAttendance);
 
 // uploading the students attendnace by daywise - Route
 app.use('/faculty/uploadAttedance',attendanceUploader); 
+
+// fecthcing all the students
+app.use('/admin/getAll',allStudentsProvider);
 
 app.listen(5000,()=>{
     console.log('Server Listening to Port Number 5000...')
