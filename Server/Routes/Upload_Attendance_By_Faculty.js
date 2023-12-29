@@ -11,10 +11,11 @@ attendanceUploader.post('/',async(req,res)=>{
     
     try{
           
-         const absentees = await Class.findOne({$and:[{'criteria.Department':Department},{facultyID:facultyID}]});
-         
-         if(absentees[date] === null){
-            
+         var absentees = await Class.findOne({$and:[{'criteria.Department':Department},{facultyID:facultyID}]}).absentees;
+         console.log(absentees);
+         if(absentees == undefined) absentees = {};
+         if(absentees[date] == undefined){
+            console.log(date);
              absentees[date] = absent;
              await Class.updateOne({$and:[{'criteria.Department':Department},{facultyID:facultyID}]},{
                 $set : {
@@ -22,32 +23,33 @@ attendanceUploader.post('/',async(req,res)=>{
                 }
              })
 
+
              await Class.updateOne({$and:[{'criteria.Department':Department},{facultyID:facultyID}]},{
-                 $inc : {totalDaysOfAttendence:1}
+                 $set : {totalDaysOfAttendence:Object.keys(absentees).length}
              })
 
-             for(var sid in absent){
-
+             for(var sid of absent){
                  await Student.updateOne({$and:[{Department:Department},{facultyName:facultyName},{rollNumber:sid}]},{
                     $inc :{
-                        'Attendace.absent':1
+                        absent : 1
                     }
                  })
              }
-             for(var sid in present){
+            
+             for(var sid of present){
 
                 await Student.updateOne({$and:[{Department:Department},{facultyName:facultyName},{rollNumber:sid}]},{
-                   $inc :{
-                       'Attendace.present':1
-                   }
+                    $inc :{
+                        present : 1
+                    }
                 })
             }
-            for(var sid in od){
+            for(var sid of od){
 
                 await Student.updateOne({$and:[{Department:Department},{facultyName:facultyName},{rollNumber:sid}]},{
-                   $inc :{
-                       'Attendace.OD':1
-                   }
+                    $inc : {
+                        OD : 1
+                    }
                 })
             }
 
@@ -71,3 +73,5 @@ attendanceUploader.post('/',async(req,res)=>{
             })
     }
 })
+
+module.exports = attendanceUploader;

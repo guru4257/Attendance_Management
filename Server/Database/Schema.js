@@ -22,19 +22,17 @@ const studentSchema = new mongoose.Schema({
     Password : {
         type : String
     },
-    Attendace : {
-         present : {
-            type : Number,
-            default : 0
-         },
-         absent :{
-            type : Number,
-            default : 0
-         },
-         OD : {
-            type : Number,
-            default : 0
-         }
+    present:{
+        type : Number,
+        default : 0
+    },
+    absent : {
+        type : Number,
+        default:0
+    },
+    OD : {
+        type : Number,
+        default : 0
     },
     facultyName : {
         type : String,

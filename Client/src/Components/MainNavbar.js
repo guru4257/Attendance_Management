@@ -16,8 +16,7 @@ const MainNavBar = () => {
     
     logOut().then((res)=>{
       
-          sessionStorage.removeItem('userType');
-          sessionStorage.removeItem('userID');
+          sessionStorage.clear();
           navigate('/');
     });
   }

@@ -7,11 +7,11 @@ const studentProviderForAttendance = express.Router();
 
 studentProviderForAttendance.post('/',async(req,res)=>{
      
-      const{Batch,Department,facultyName} = req.body;
+      const{Department,facultyName} = req.body;
 
       try{
 
-           const students = await Student.find({$and:[{Batch:Batch},{Department:Department},{facultyName:facultyName}]});
+           const students = await Student.find({$and:[{Department:Department},{facultyName:facultyName}]});
            
             return res.json({
                 Success : 'True',

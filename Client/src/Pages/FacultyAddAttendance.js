@@ -47,6 +47,7 @@ const FacultyAddAttendance = ()=>{
     const onSubmit = (present, absent, od)=>{
            
            const dateModified = dateFormat(date);
+           console.log(dateModified);
            const data = {
              present : present,
              absent : absent,

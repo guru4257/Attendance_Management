@@ -17,7 +17,6 @@ facultyAssigner.post('/',async(req,res)=>{
                     Department : Department
                 }
             }]});
-            console.log(alreadyAssinedData)
             if(alreadyAssinedData[0].facultyID !== '0000'){
 
                 return res.json({
