@@ -11,11 +11,13 @@ const facultyAssigner = require('./Routes/Assign_Faculty_To_Class')
 const availableClassesAndFacultiesProvider = require('./Routes/Get_Available_Classes_Faculties')
 const logouter = require('./Routes/Logout')
 const passwordChanger = require('./Routes/Change_Password')
+const bulkDataAdder = require('./Routes/Add_Students_Bulk_Data')
+const studentProviderForAttendance = require('./Routes/Faculty_Get_Students_For_Attendance')
 
 app.use("*",cors({
-    origin: true,
-    credentials: true
-}));
+    origin : true,
+    credentials:true
+  }));
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
@@ -45,7 +47,11 @@ app.use('/admin/getAvailable/classes/faculties',availableClassesAndFacultiesProv
 // Updating user password - Route
 app.use('/user/changePassword',passwordChanger);
 
+// Adding Bulk Data of Students - Route
+app.use('/admin/addBulkData',bulkDataAdder);
 
+// fetching students for particular faculty for providing attendance
+app.use('/faculty/getStudentsForAttendance',studentProviderForAttendance);
 
 app.listen(5000,()=>{
     console.log('Server Listening to Port Number 5000...')

@@ -24,7 +24,7 @@ userLoginer.post('/',validUser,async(req,res)=>{
                 userID : userID,
                 Batch : Batch,
                 userName : studentName,
-                Deparment : Department
+                Department : Department
     
             })
         }else if(userType === 'Faculty'){
@@ -40,7 +40,7 @@ userLoginer.post('/',validUser,async(req,res)=>{
                 userType : userType,
                 userID : userID,
                 userName : facultyName,
-                Deparment : Department
+                Department : Department
     
             })
         }else{

@@ -6,7 +6,7 @@ const sessionvalidator = require('../Middleware/session_validator.js');
 const { Student } = require('../Database/Schema');
 
 // Router for adding one student by admin
-addStudentRouter.post('/', sessionvalidator ,async(req,res)=>{
+addStudentRouter.post('/',async(req,res)=>{
 
     const{studentName,rollNumber,Batch,Department,registerNumber,Password} = req.body;
 

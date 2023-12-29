@@ -58,7 +58,7 @@ const MainNavBar = () => {
           </li>
 
           <li className="nav-item me-6 me-lg-5 ">
-            <h5>Admin</h5>
+            <h5>{sessionStorage.getItem('userName')}</h5>
           </li>
           <li className="nav-item me-3 me-lg-0">
                <Button onClick={logout}><strong>Log Out</strong></Button>

@@ -11,6 +11,7 @@ import AddClass from './Pages/AddClass';
 import AddFaculty from './Pages/AddFaculty';
 import AssignFacultyToClass from './Pages/AssignFacultyToClass';
 import ChangePassword from './Pages/ChangePassword';
+import FacultyAddAttendance from './Pages/FacultyAddAttendance';
 
 
 
@@ -30,6 +31,7 @@ function App() {
             <Route element={<AddFaculty />} path='/admin/addFaculty'></Route>
             <Route element={<AssignFacultyToClass />} path='/admin/assignFaculty'></Route>
             <Route element={<ChangePassword />} path='/user/changePassword'></Route>
+            <Route element={<FacultyAddAttendance />} path='/faculty/provide/attendance'></Route>
         </Routes>
       </Router>
       <ToastContainer />

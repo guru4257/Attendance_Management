@@ -224,11 +224,11 @@ const[availClasses,setAvailClasses] = useState([]);
                             role="status"
                             aria-hidden="true"
                           ></span>
-                          Adding...
+                          Assigning...
                         </button>
                       ) : (
                         <Button variant="primary" type="submit">
-                          Add Class
+                          Assign Class
                         </Button>
                       )}
                     </Col>

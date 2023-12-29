@@ -4,7 +4,7 @@ const { Class } = require('../Database/Schema');
 
 const addClassesRouter = express.Router();
 
-addClassesRouter.post('/',sessionvalidator,async(req,res)=>{
+addClassesRouter.post('/',async(req,res)=>{
 
     const{name,Batch,Department} = req.body;
 

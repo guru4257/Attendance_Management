@@ -7,11 +7,12 @@ import { GrChapterAdd } from "react-icons/gr";
 import { GiTeacher } from "react-icons/gi";
 import { FaEdit } from "react-icons/fa";
 import { MdCoPresent } from "react-icons/md";
+import { GrDocumentPerformance } from "react-icons/gr";
 
 
 const SideNavbar = () => {
 
-  const userType = 'Admin';
+  const userType = sessionStorage.getItem('userType');
   //  sessionStorage.getItem('userType');
   return (
     <nav id="sidebarMenu" className ="collapse d-lg-block sidebar collapse bg-white">
@@ -37,24 +38,19 @@ const SideNavbar = () => {
         </Link> */}
         {
           userType === 'Faculty' && (
-            <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><MdCoPresent />  <span><strong>Upload Attendance</strong></span></Link>
+            <Link to="/faculty/provide/attendance" className ="list-group-item list-group-item-action py-4 ripple"><MdCoPresent />  <span><strong>Upload Attendance</strong></span></Link>
           )
+        }
+        {
+           userType === 'Student' && (
+            <Link to="/student/myAttendanceSummary" className ="list-group-item list-group-item-action py-4 ripple">
+            <GrDocumentPerformance />  <span><strong>My Attendance</strong></span>
+            </Link>
+           )
         }
         <Link to="/user/changePassword" className ="list-group-item list-group-item-action py-4 ripple">
         <FaEdit />  <span><strong>Change Password</strong></span>
         </Link>
-        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
-            className ="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></Link>
-        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
-            className ="fas fa-globe fa-fw me-3"></i><span>International</span></Link>
-        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
-            className ="fas fa-building fa-fw me-3"></i><span>Partners</span></Link>
-        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
-            className ="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></Link>
-        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
-            className ="fas fa-users fa-fw me-3"></i><span>Users</span></Link>
-        <Link to="#" className ="list-group-item list-group-item-action py-4 ripple"><i
-            className ="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></Link>
       </div>
     </div>
   </nav>

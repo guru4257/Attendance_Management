@@ -96,10 +96,7 @@ const classSchema = new mongoose.Schema({
      },
      absentees : {
 
-        "date" : {
-            type : Array,
-            default : []
-        }
+        type: Object
      }
 })
 

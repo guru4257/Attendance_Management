@@ -3,7 +3,7 @@ const sessionvalidator = require('../Middleware/session_validator');
 const { Faculty, Class } = require('../Database/Schema');
 const availableClassesAndFacultiesProvider = express.Router();
 
-availableClassesAndFacultiesProvider.post('/',sessionvalidator,async(req,res)=>{
+availableClassesAndFacultiesProvider.post('/',async(req,res)=>{
           
        const{ Batch, Department } = req.body;
        console.log(Batch,Department);

@@ -44,3 +44,21 @@ export const changePasswordFor = async(data)=>{
       return await axios.post(url+'/user/changePassword',data,{withCredentials:true});
 }
 
+// post request for adding bulk data
+export const addBulkStudentData = async(data)=>{
+
+      return await axios.post(url+"/admin/addBulkData",data,{withCredentials:true});
+}
+
+// post request for getting the particular department students for appropriate Faculty
+export const getStudetsForAttendsPage = async(data)=>{
+
+      return await axios.post(url+"/faculty/getStudentsForAttendance",data,{withCredentials:true});
+}  
+
+// post request for uploading attendace
+export const uploadAttendanceByFaculty = async(data)=>{
+
+       return await axios.post(url+'/faculty/uploadAttedance',data,{withCredentials:true});
+}
+

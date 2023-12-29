@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 // Adding Faculty Router
-addFacultyRouter.post('/',sessionvalidator,async(req,res)=>{
+addFacultyRouter.post('/',async(req,res)=>{
 
      const{employeeID, employeeName, Password, Department} = req.body;
 

@@ -4,7 +4,7 @@ const { Class, Student, Faculty } = require('../Database/Schema');
 const facultyAssigner = express.Router();
 
 // Router for Assining faculty to the class..
-facultyAssigner.post('/',sessionvalidator,async(req,res)=>{
+facultyAssigner.post('/',async(req,res)=>{
       
         const{faculty, name, Batch, Department} = req.body;
 
@@ -37,7 +37,7 @@ facultyAssigner.post('/',sessionvalidator,async(req,res)=>{
                             Batch : Batch,
                             Department : Department,
                         },
-                        faculty : faculty
+                        facultyID : faculty
                     }
                 })
     

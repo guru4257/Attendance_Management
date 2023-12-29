@@ -10,7 +10,7 @@ const validUser = async(req,res,next)=>{
 
         const {userType,userID,Password} = req.body
         if(userType==='Student'){
-            const userDetails = await Student.find({studentID:userID})
+            const userDetails = await Student.find({rollNumber:userID})
             if(userDetails.length===0){
                 return res.json({
                     Success : 'False',
@@ -27,7 +27,7 @@ const validUser = async(req,res,next)=>{
                             Message : "Invalid Password!"
                         })
                     }else{
-                        res.cookie("user_id",userDetails[0]._id,{httpOnly:true});
+                        res.cookie("user_id",userDetails[0]._id,{httpOnly: true});
                         next()
                     }
                 })
@@ -50,7 +50,7 @@ const validUser = async(req,res,next)=>{
                             Message : "Invalid Password!"
                         })
                     }else{
-                        res.cookie("user_id",facultyDetails[0]._id,{httpOnly:true});
+                        res.cookie("user_id",facultyDetails[0]._id,{httpOnly: true});
                         next()
                     }
                 })
@@ -84,7 +84,7 @@ const validUser = async(req,res,next)=>{
                                     Message : "Invalid Password!"
                            })
                 }else{
-                    res.cookie("user_id",adminDetails[0]._id,{httpOnly:true});
+                    res.cookie("user_id",adminDetails[0]._id,{httpOnly: true});
                     next();
                 }
             }

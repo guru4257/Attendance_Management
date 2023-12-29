@@ -8,9 +8,10 @@ import Form from "react-bootstrap/esm/Form";
 import Card from "react-bootstrap/esm/Card";
 import Container from "react-bootstrap/esm/Container";
 import "../Pages/Dashboard.css";
-import { addStudent } from "../services/postRequest";
+import { addBulkStudentData, addStudent } from "../services/postRequest";
 import { notify } from "../services/toastify";
 import { useNavigate } from "react-router-dom";
+import ReactDOM from "react-dom";
 
 const AddStudents = () => {
   // state for studentdata
@@ -23,8 +24,14 @@ const AddStudents = () => {
     Password: "",
   });
 
+  //state for File
+  const [uploadingFileName, setUploadingFileName] = useState({ file: null });
+
   //state for Loading spinner
   const [spinner, setSpinner] = useState(false);
+
+  // state for JD Spinner
+  const[fileSpinner,setFileSpinner] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,34 +41,83 @@ const AddStudents = () => {
     setStudent({ ...student, [name]: value });
   };
 
+  //on change logic for file
+  const OnHandleFileChange = (event) => {
+    // const { name, value } = event.target;
+
+    // console.log(name);
+    // console.log(value);
+    // console.log(event.target.files[0]);
+    uploadingFileName.file = event.target.files[0];
+    setUploadingFileName(uploadingFileName);
+    // console.log(uploadingFileName);
+  };
+
   //on submitting send request to the server and handling responses
-  const onHandleSubmit = (event)=>{
+  const onHandleSubmit = (event) => {
     event.preventDefault();
     console.log(student);
     setSpinner(true);
-    addStudent(student).then((res)=>{
-
-         if(res.data.Success === 'True'){
-              notify(res.data.Message,'success');
-              setStudent({
-                studentName: "",
-                rollNumber: "",
-                registerNumber: "",
-                Batch: "",
-                Department: "",
-                Password: "",
-              })
-         }else{
-
-              notify(res.data.Message,'warning');
-         }
-    }).catch((err)=>{
-          notify(err.response.data.Message,'error');
-    }).finally(()=>{
+    addStudent(student)
+      .then((res) => {
+        if (res.data.Success === "True") {
+          notify(res.data.Message, "success");
+          setStudent({
+            studentName: "",
+            rollNumber: "",
+            registerNumber: "",
+            Batch: "",
+            Department: "",
+            Password: "",
+          });
+        } else {
+          notify(res.data.Message, "warning");
+        }
+      })
+      .catch((err) => {
+        notify(err.response.data.Message, "error");
+      })
+      .finally(() => {
         setSpinner(false);
-    })
+      });
+  };
 
-  }
+  //logic for uploading JD
+
+  const onHandleJDSubmit = (event) => {
+    event.preventDefault();
+
+    //appending stuendt file to form data
+    setFileSpinner(true);
+    const formData = new FormData();
+    formData.append(
+      "StudentData",
+      uploadingFileName.file,
+      uploadingFileName.file.name
+    );
+    
+    addBulkStudentData(formData).then((res)=>{
+       if(res.data.Success === 'True'){
+        notify(res.data.Message,'success');
+        setFileSpinner(false);
+       }
+    }).catch((err)=>{
+      console.log(err);
+      notify(err.response.data.Message,'error');
+
+    }).finally(()=>{
+      console.log("process over");
+      setFileSpinner(false);
+    })
+    console.log(uploadingFileName);
+    setUploadingFileName({ file: null });
+    let ele = document.getElementById("fileData");
+    console.log(ele);
+    console.log(ReactDOM.findDOMNode(ele).value,'file');
+    ReactDOM.findDOMNode(ele).value = "";
+
+
+  };
 
   return (
     <>
@@ -206,6 +262,56 @@ const AddStudents = () => {
                       ) : (
                         <Button variant="primary" type="submit">
                           Add Student
+                        </Button>
+                      )}
+                    </Col>
+                  </Row>
+                </Form>
+              </Card>
+              <Row style={{ marginTop: "4%" }}>
+                <Col>
+                  <hr
+                    style={{ border: "3px solid #004E9B", borderRadius: "5px" }}
+                  ></hr>
+                </Col>
+              </Row>
+              <h3 style={{ marginTop: "1%", textAlign: "center" }}>
+                ADD BULK STUDENT DATA
+              </h3>
+              <Card bg="light">
+                <Form style={{ marginTop: "3%" }} onSubmit={onHandleJDSubmit}>
+                  <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm={2} style={{ textAlign: "center" }}>
+                      <strong>Upload Student CSV file</strong>
+                    </Form.Label>
+                    <Col sm={5}>
+                      <Form.Control
+                        type="file"
+                        id="fileData"
+                        name="uploadingFileName"
+                        onChange={OnHandleFileChange}
+                        required
+                      />
+                    </Col>
+                  </Form.Group>
+                  <Row className="mb-3">
+                    <Col style={{ textAlign: "center" }}>
+                      {fileSpinner ? (
+                        <button
+                          className="btn btn-primary"
+                          type="button"
+                          disabled
+                        >
+                          <span
+                            className="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
+                          Uploading...
+                        </button>
+                      ) : (
+                        <Button variant="primary" type="submit">
+                          Upload
                         </Button>
                       )}
                     </Col>

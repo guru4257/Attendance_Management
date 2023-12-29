@@ -8,7 +8,7 @@ import Form from "react-bootstrap/esm/Form";
 import Card from "react-bootstrap/esm/Card";
 import Container from "react-bootstrap/esm/Container";
 import "../Pages/Dashboard.css";
-import { addClass } from "../services/postRequest";
+import { changePasswordFor } from "../services/postRequest";
 import { notify } from "../services/toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -46,7 +46,7 @@ const ChangePassword = () => {
     setPasswordData({...passwordData});
     console.log(passwordData);
     setSpinner(true);
-    addClass(passwordData).then((res)=>{
+    changePasswordFor(passwordData).then((res)=>{
 
          if(res.data.Success === 'True'){
               notify(res.data.Message,'success');

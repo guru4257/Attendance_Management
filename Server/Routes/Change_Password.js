@@ -7,17 +7,18 @@ const { Student, Faculty } = require('../Database/Schema');
 const saltRounds = 10;
 
 // Router for Changing Password
-passwordChanger.post('/',sessionvalidator,async(req,res)=>{
+passwordChanger.post('/',async(req,res)=>{
      
        const{userType,userID,Batch,Department,newPassword} = req.body;
+       console.log(userType,userID,Batch,Department,newPassword);
 
        try{
-            const Password = await bcrypt.hash(newPassword,saltRounds);
+            const password = await bcrypt.hash(newPassword,saltRounds);
             if(userType === 'Student'){
 
                 const studentPassswordUpdate = await Student.updateOne({$and:[{Batch:Batch},{Department:Department},{rollNumber:userID}]},{
                     $set : {
-                        Password : Password
+                        Password : password
                     }
                 })
                 if(studentPassswordUpdate.modifiedCount >= 0){
